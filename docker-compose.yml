@@ -1,0 +1,11 @@
+version: '3'
+services:
+  backend_ubuntu:
+    image: backend_ubuntu
+    volumes:
+      - type: bind
+        source: .
+        target: /online_chat_messenger
+    stdin_open: true
+    tty: true
+    command: bash
