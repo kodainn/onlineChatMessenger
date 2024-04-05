@@ -1,4 +1,10 @@
 import socket
+import threading
+
+def recive_message(client_socket):
+    while True:
+        responseData = client_socket.recv(4096).decode('utf-8')
+        print(responseData)
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
@@ -25,12 +31,13 @@ if len(username) > 255:
 #ユーザー名を送信
 client_socket.sendto(username.encode('utf-8'), (server_address, server_port))
 
+receiver_thread = threading.Thread(target=recive_message, args=(client_socket, ))
+receiver_thread.start()
+
 try:
     while True:
         message = input('send message: ')
         client_socket.sendto(message.encode('utf-8'), (server_address, server_port))
-        responseData = client_socket.recv(4096).decode('utf-8')
-        print(responseData)
 except Exception as e:
     print('error: ', e)
 finally:
