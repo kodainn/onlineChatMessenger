@@ -1,7 +1,7 @@
 version: '3'
 services:
-  backend_ubuntu:
-    image: backend_ubuntu
+  python_ubuntu:
+    image: python_ubuntu
     volumes:
       - type: bind
         source: .
